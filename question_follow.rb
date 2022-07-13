@@ -1,8 +1,8 @@
 require_relative "QuestionsDatabase.rb"
 
-class Questions
+class QuestionFollow
 
-    attr_accessor :title, :body, :users_id
+    attr_accessor :users_id, :questions_id
     
     def self.find_by_id(id)
         x = QuestionsDatabase.instance.execute(<<-SQL, id)
@@ -10,20 +10,16 @@ class Questions
         SELECT
         *
         FROM
-        questions
+        question_follows
         WHERE
         id = ?  
     SQL
 
-    Questions.new(x)
+    QuestionFollow.new(x.first)
     end
 
-
     def initialize(options)
-
-        @title = options['title']
-        @body = options['body']
         @users_id = options['users_id']
-
+        @questions_id = options['questions_id']
     end
 end

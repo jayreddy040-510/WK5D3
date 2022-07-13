@@ -1,6 +1,6 @@
 require_relative "QuestionsDatabase.rb"
 
-class Replies
+class Reply
 
     attr_accessor :body, :parent_id, :users_id, :questions_id
     
@@ -15,7 +15,7 @@ class Replies
         id = ?  
     SQL
 
-    Replies.new(x)
+    Reply.new(x.first)
     end
 
     def initialize(options)

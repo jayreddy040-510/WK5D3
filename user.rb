@@ -1,8 +1,14 @@
 require_relative "QuestionsDatabase.rb"
+require 'byebug'
 
-class Users
+class User
 
     attr_accessor :fname, :lname
+
+    def self.all
+        users = QuestionsDatabase.instance.execute("SELECT * FROM users")
+        users.map {|u| User.new(u) }
+    end
 
     def self.find_by_id(id)
         x = QuestionsDatabase.instance.execute(<<-SQL, id)
@@ -15,26 +21,27 @@ class Users
         id = ?    
     SQL
 
-    Users.new(x)
+    User.new(x.first)
     end
 
-    def self.find_by_name(name)
-        x = QuestionsDatabase.instance.execute(<<-SQL, name)
+    def self.find_by_name(fname)
+        x = QuestionsDatabase.instance.execute(<<-SQL, fname)
 
         SELECT
         *
         FROM
         users
         WHERE
-        name = ?   
+        fname = ?   
     SQL
 
-    Users.new(x)
+    User.new(x.first)
     end
 
     def initialize(options)
         @fname = options['fname']
         @lname = options['lname']
+       
     end
     
     

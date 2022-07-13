@@ -1,6 +1,6 @@
 require_relative "QuestionsDatabase.rb"
 
-class Questions
+class Question
 
     attr_accessor :title, :body, :users_id
     
@@ -15,12 +15,11 @@ class Questions
         id = ?  
     SQL
 
-    Questions.new(x)
+    Question.new(x.first)
     end
 
 
     def initialize(options)
-
         @title = options['title']
         @body = options['body']
         @users_id = options['users_id']
