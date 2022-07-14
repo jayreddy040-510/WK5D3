@@ -49,10 +49,13 @@ CREATE TABLE replies (
 CREATE TABLE question_likes (
     id INTEGER PRIMARY KEY,
     users_id INTEGER NOT NULL,
-    questions_id INTEGER NOT NULL,
+    questions_id INTEGER,
 
-    FOREIGN KEY (questions_id) REFERENCES questions(id)
+    FOREIGN KEY (questions_id) REFERENCES questions(id),
+    FOREIGN KEY (users_id) REFERENCES users(id)
 );
+
+
 
 
 INSERT INTO
@@ -98,10 +101,17 @@ VALUES
     (SELECT users.id FROM users WHERE users.fname = 'Jay'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Environment%'));
     
 
+
 INSERT INTO
-    question_likes (users_id, questions_id)
+    question_likes(users_id, questions_id)
 
-VALUES 
+VALUES
     ((SELECT users.id FROM users WHERE users.fname = 'Jay'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Environment%')),
-    ((SELECT users.id FROM users WHERE users.fname = 'Derek'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Creating%'));
-
+    ((SELECT users.id FROM users WHERE users.fname = 'Jay'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Creat%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Taylor'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Environment%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Derek'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Environment%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Derek'), (SELECT questions.id FROM questions WHERE questions.title LIKE 'Creat%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Jay'), (SELECT questions.id FROM questions WHERE questions.title LIKE '%NULL%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Derek'), (SELECT questions.id FROM questions WHERE questions.title LIKE '%NULL%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Taylor'), (SELECT questions.id FROM questions WHERE questions.title LIKE '%NULL%')),
+    ((SELECT users.id FROM users WHERE users.fname = 'Bob'), (SELECT questions.id FROM questions WHERE questions.title LIKE '%NULL%'));
